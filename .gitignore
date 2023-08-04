@@ -1,0 +1,14 @@
+*.o
+*.a
+*.so
+*.dll
+
+*.out
+*.log
+*.txt
+*.csv
+
+*.exe 
+
+Data/
+eigen-3.4.0/

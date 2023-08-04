@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/*",
+                "${workspaceFolder}/eigen-3.4.0"
+            ],
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
