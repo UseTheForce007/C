@@ -54,3 +54,16 @@ std::pair<double, double> linearRegression(const std::vector<double> &x, const s
 
     return std::make_pair(a, b);
 }
+
+std::pair<double, double> performLinearRegression_descent(const std::vector<double> &x, const std::vector<double> &y, double learningRate, int numIterations)
+{
+    int n = x.size();
+    const double *x_ptr = x.data();
+    const double *y_ptr = y.data();
+
+    Eigen::Map<const Eigen::VectorXd> X(x_ptr, n);
+    Eigen::Map<const Eigen::VectorXd> Y(y_ptr, n);
+
+    // Perform linear regression using Gradient Descent
+    return gradientDescent(X, Y, learningRate, numIterations);
+}

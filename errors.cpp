@@ -18,7 +18,7 @@ double meanSquaredError(const std::vector<double> &predicted, const std::vector<
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Time taken by function of MSE 2: " << elapsed.count() << " seconds" << std::endl;
+    std::cout << "Time taken by function of MSE : " << elapsed.count() << " seconds" << std::endl;
     return sumSquaredError / n;
 }
 
@@ -36,21 +36,21 @@ double meanSquaredError(const std::vector<double> &predicted, const std::vector<
  * @return The mean squared error between the predicted and actual values.
  */
 
-double meanSquaredError2(const std::vector<double> &predicted, const std::vector<double> &actual)
-{
-    auto start = std::chrono::high_resolution_clock::now();
-    int n = predicted.size();
-    double sumSquaredError = std::inner_product(
-        predicted.begin(), predicted.end(), actual.begin(), 0.0,
-        [](double a, double b)
-        { return a + b; },
-        [](double a, double b)
-        { double error = a - b; return error * error; });
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Time taken by function of MSE 2: " << elapsed.count() << " seconds" << std::endl;
-    return sumSquaredError / n;
-}
+// double meanSquaredError2(const std::vector<double> &predicted, const std::vector<double> &actual)
+// {
+//     auto start = std::chrono::high_resolution_clock::now();
+//     int n = predicted.size();
+//     double sumSquaredError = std::inner_product(
+//         predicted.begin(), predicted.end(), actual.begin(), 0.0,
+//         [](double a, double b)
+//         { return a + b; },
+//         [](double a, double b)
+//         { double error = a - b; return error * error; });
+//     auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> elapsed = end - start;
+//     std::cout << "Time taken by function of MSE 2: " << elapsed.count() << " seconds" << std::endl;
+//     return sumSquaredError / n;
+// }
 
 double rSquared(const std::vector<double> &predicted, const std::vector<double> &actual)
 {

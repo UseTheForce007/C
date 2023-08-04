@@ -35,7 +35,7 @@ void writeRegressionData(const std::string &filename, double a, double b, const 
 
 int main()
 {
-    std::string filename = "./Data/bot.csv"; // Replace with your CSV file name
+    std::string filename = "./Data/bot.csv";
 
     std::vector<DataEntry> data = readCSV(filename);
 
@@ -58,6 +58,7 @@ int main()
     // Extract salinity and temp data from the DataEntry vector
     for (const auto &entry : data)
     {
+
         salinity.push_back(static_cast<double>(entry.salinity));
         temp.push_back(static_cast<double>(entry.temp));
     }
@@ -73,8 +74,27 @@ int main()
     double a = regressionCoefficients.first;
     double b = regressionCoefficients.second;
 
+    double learning_rate = 0.001;
+    int num_iterations = 1000;
+    // Perform regression with gradient descent
+    std::pair<double, double> regressionCoefficients_1 = performLinearRegression_descent(salinity, temp, learning_rate, num_iterations);
+    double a_1 = regressionCoefficients_1.first;
+    double b_1 = regressionCoefficients_1.second;
+
+    // Output the calculated coefficients
+    std::cout << "Regression Coefficients:\n";
+    std::cout << "Slope (a): " << a << "\n";
+    std::cout << "Intercept (b): " << b << "\n";
+
     // Display the results
     std::cout << "Regression Equation: temp = " << a << " * salinity + " << b << std::endl;
+
+    std::cout << "Regression Coefficients _1:\n";
+    std::cout << "Slope (a_1): " << a_1 << "\n";
+    std::cout << "Intercept (b_1): " << b_1 << "\n";
+
+    // Display the results
+    std::cout << "Regression Equation: temp = " << a_1 << " * salinity + " << b_1 << std::endl;
 
     // Assuming you already have 'a', 'b', and 'salinity' vectors
     std::vector<double> predicted_temp;
@@ -85,11 +105,11 @@ int main()
     }
 
     double mse = meanSquaredError(predicted_temp, temp);
-    double mse2 = meanSquaredError(predicted_temp, temp);
+    // double mse2 = meanSquaredError2(predicted_temp, temp);
     double r_squared = rSquared(predicted_temp, temp);
 
     std::cout << "Mean Squared Error (MSE): " << mse << std::endl;
-    std::cout << "Mean Squared Error (MSE2): " << mse2 << std::endl;
+    // std::cout << "Mean Squared Error (MSE2): " << mse2 << std::endl;
     std::cout << "R-squared (R²): " << r_squared << std::endl;
     writeRegressionData("regression_data.csv", a, b, data);
 

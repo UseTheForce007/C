@@ -3,7 +3,7 @@
 #include <utility>
 #include <Eigen/Dense>
 
-std::pair<double, double> gradientDescent(const Eigen::VectorXd &X, const Eigen::VectorXd &y, double learningRate = 0.01, int numIterations = 1000)
+std::pair<double, double> gradientDescent(const Eigen::VectorXd &X, const Eigen::VectorXd &y, double learningRate, int numIterations)
 {
     double a = 0.0; // Initial guess for the slope (a)
     double b = 0.0; // Initial guess for the intercept (b)
