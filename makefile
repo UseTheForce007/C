@@ -1,4 +1,4 @@
-CXXFLAGS := -std=c++11 -Wall -Wextra -pedantic -I ./eigen-3.4.0/
+CXXFLAGS := -std=c++20 -Wall -Wextra -pedantic -I ./eigen-3.4.0/
 CXX := clang++	
 CXXDEBUGFLAGS := $(CXXFLAGS) -g
 CXXRELEASEFLAGS := $(CXXFLAGS) -O3
