@@ -22,25 +22,6 @@ std::pair<double, double> linearRegression(const std::vector<double> &x, const s
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Time taken by function: " << elapsed.count() << " seconds" << std::endl;
 
-    // Time code difference and further optimize
-
-    start = std::chrono::high_resolution_clock::now();
-
-    Eigen::VectorXd A = Eigen::VectorXd::Constant(n, 0.0);
-    Eigen::VectorXd B = Eigen::VectorXd::Constant(n, 0.0);
-    // Eigen::VectorXd X(n);
-    // Eigen::VectorXd Y(n);
-    for (int i = 0; i < n; i++)
-    {
-        A(i) = x[i];
-        B(i) = y[i];
-    }
-
-    end = std::chrono::high_resolution_clock::now();
-
-    elapsed = end - start;
-    std::cout << "Time taken by function: " << elapsed.count() << " seconds" << std::endl;
-
     double sumX = X.sum();
     double sumY = Y.sum();
     double sumXY = (X.array() * Y.array()).sum();
@@ -53,4 +34,32 @@ std::pair<double, double> linearRegression(const std::vector<double> &x, const s
     double b = meanY - a * meanX;
 
     return std::make_pair(a, b);
+}
+
+Eigen::MatrixXd normalEquation(const std::vector<double> &x, const std::vector<double> &y)
+{
+
+    auto start = std::chrono::high_resolution_clock::now();
+    int n = x.size();
+    const double *x_ptr = x.data();
+    const double *y_ptr = y.data();
+
+    Eigen::Map<const Eigen::VectorXd> X(x_ptr, n);
+    Eigen::Map<const Eigen::VectorXd> Y(y_ptr, n);
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Time taken by function: " << elapsed.count() << " seconds" << std::endl;
+
+    Eigen::MatrixXd X_mat(n, 2);
+    X_mat.col(0) = Eigen::VectorXd::Ones(n);
+    X_mat.col(1) = X;
+
+    Eigen::MatrixXd X_T_X = X_mat.transpose() * X_mat;
+    Eigen::MatrixXd X_T_X_inv = X_T_X.inverse();
+    Eigen::MatrixXd X_T_Y = X_mat.transpose() * Y;
+    Eigen::MatrixXd Weights = X_T_X_inv * X_T_Y;
+
+    return Weights;
 }

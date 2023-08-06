@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdlib> // For std::system
+#include <chrono>
+#include <Eigen/Dense>
 
 void writeRegressionData(const std::string &filename, double a, double b, const std::vector<DataEntry> &data)
 {
@@ -91,7 +93,11 @@ int main()
     std::cout << "Mean Squared Error (MSE): " << mse << std::endl;
     std::cout << "Mean Squared Error (MSE2): " << mse2 << std::endl;
     std::cout << "R-squared (R²): " << r_squared << std::endl;
-    writeRegressionData("regression_data.csv", a, b, data);
+
+    Eigen::MatrixXd Weights = normalEquation(salinity, temp);
+    std::cout << "Weights: " << Weights << std::endl;
+
+    // writeRegressionData("regression_data.csv", a, b, data);
 
     return 0;
 }
